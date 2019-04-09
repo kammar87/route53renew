@@ -1,0 +1,15 @@
+version: '3'
+services:
+  route53cert:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: route53cert
+    hostname: route53cert
+    volumes:
+      - /opt/route53cert:/usr/src/app
+      - /opt/letsencrypt:/etc/letsencrypt
+      - /etc/ssl/web:/etc/ssl/web
+    command: bash /usr/src/app/generate.sh
+    env_file:
+      - /opt/secrets/PROJ.env
